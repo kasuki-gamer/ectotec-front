@@ -1,0 +1,82 @@
+<div class="container">
+
+    <div class="row">
+        <img src="assets/img/banner.jpg" class="img-fluid" alt="Responsive image">
+        <div class="col-6">
+            <br/>
+            <form autocomplete="off" [formGroup]="forma">
+
+
+                <div class="mb-3 row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="nombre" maxlength="100" [class.is-invalid]="forma.get('nombre')?.invalid  && forma.get('nombre')?.touched" [class.is-valid]="forma.get('nombre')?.valid" class="form-control" id="nombre">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="email" maxlength="100" [class.is-invalid]="forma.get('email')?.invalid  && forma.get('email')?.touched" [class.is-valid]="forma.get('email')?.valid" class="form-control" id="email">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="telefono" class="col-sm-2 col-form-label">Teléfono</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="telefono" maxlength="100" [class.is-invalid]="forma.get('telefono')?.invalid  && forma.get('telefono')?.touched" [class.is-valid]="forma.get('telefono')?.valid" class="form-control" id="telefono">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+                    <div class="col-sm-10">
+
+
+                        <div class="input-group">
+                            <input class="form-control" formControlName="fecha" [class.is-invalid]="forma.get('fecha')?.invalid  && forma.get('fecha')?.touched" [class.is-valid]="forma.get('fecha')?.valid" placeholder="dd/mm/yyyy" ngbDatepicker #ft="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="ft.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="ciudadEdo" class="col-sm-2 col-form-label">Ciudad y Estado</label>
+                    <div class="col-sm-10">
+                        <input type="text" [matAutocomplete]="auto" formControlName="ciudadEdo" maxlength="100" [class.is-invalid]="forma.get('ciudadEdo')?.invalid  && forma.get('ciudadEdo')?.touched" [class.is-valid]="forma.get('ciudadEdo')?.valid" class="form-control" id="cd">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let desc of filteredDescCatalogo | async" [value]="desc">
+                                {{desc}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="cd" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <div class="text-center">
+                            <img [src]="urlApi" #image class="w-100" alt="">
+                            <a class="manita blanco_txt" (click)="getLinkPicture()">Actualizar imagen</a>
+                        </div>
+
+                        <input type="text" formControlName="captcha" [class.is-invalid]="forma.get('captcha')?.invalid  && forma.get('captcha')?.touched" [class.is-valid]="forma.get('captcha')?.valid" maxlength="4" placeholder="" class="form-control">
+                        <div *ngIf="campoEsValido('captcha')" class="alert alert-danger">
+                            <strong>*</strong> Captcha Incorrecto.
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="form-group text-center">
+                    <button (click)="guardar()" type="submit" class="btn btn-primary w-25">
+                    <i class="fa fa-save"></i>
+                    Enviar
+                    </button>
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>

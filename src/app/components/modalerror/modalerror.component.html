@@ -1,0 +1,29 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="activeModal.dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body py-4  text-center">
+
+        <h5 class="mt-1 mb-3 prim-color"><b>
+        Contacto.
+      </b></h5>
+        <span>
+        <div class="modal-body text-center">
+Se encontraron los siguientes errores en sus datos de contacto:
+<br/>
+<ul *ngIf="errores.length > 0">
+    <li class="text-danger" *ngFor="let error of errores"><strong>{{error}}</strong></li>
+</ul>
+    
+    Por favor corriga los errores para continuar
+        </div>
+      </span>
+        <div class="">
+            <button data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss()" class="btn-hsbc-secondary mt-3 ">
+          Ok
+          </button>
+        </div>
+    </div>
+</div>
