@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="row">
+    <div *ngIf="!exito" class="row">
         <img src="assets/img/banner.jpg" class="img-fluid" alt="Responsive image">
         <div class="col-6">
             <br/>
@@ -78,5 +78,17 @@
 
 
         </div>
+    </div>
+
+
+    <div *ngIf="exito" class="row">
+        <img src="assets/img/banner.jpg" class="img-fluid" alt="Responsive image">
+        <br> Estimado {{contactoRequest.nombre}},
+        <br><br><br><br><br><br>
+        <div class="text-center">
+            Hemos recibido sus datos y nos pondremos en contacto con usted en la brevedad posible. Enviaremos un correo con información a su cuenta: {{contactoRequest.email}}.
+        </div>
+
+
     </div>
 </div>

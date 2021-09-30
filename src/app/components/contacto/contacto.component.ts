@@ -25,7 +25,11 @@ export class ContactoComponent implements OnInit {
 
 
   filteredDescCatalogo: Observable<string[]> | undefined;
-  descCatalogo: string[] = []; 
+  descCatalogo: string[] = [];
+
+  exito = false;
+
+  contactoRequest!:ContactoRequest; 
   constructor(private fb: FormBuilder, private captchaService: CaptchaService, private contactoService: ContactoService
     ,         private modalService: NgbModal, private datepipe: DatePipe) {
     this.forma = this.fb.group({
@@ -34,7 +38,8 @@ export class ContactoComponent implements OnInit {
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       fecha: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       ciudadEdo: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
-      captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)], [this.captchaAsyncValidator()]]
+      captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
+      //captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)], [this.captchaAsyncValidator()]]
     });
 
     
@@ -78,11 +83,11 @@ export class ContactoComponent implements OnInit {
 
       
 
-      const contactoRequest = this.forma.value as ContactoRequest;
+      this.contactoRequest = this.forma.value as ContactoRequest;
       const fecha = this.forma.get('fecha')?.value;
-      contactoRequest.fecha = String(this.datepipe.transform(fecha.year + '-' + fecha.month + '-' + fecha.day, 'yyyy-MM-dd'));
+      this.contactoRequest.fecha = String(this.datepipe.transform(fecha.year + '-' + fecha.month + '-' + fecha.day, 'yyyy-MM-dd'));
 
-      if(this.calculateDiff(contactoRequest.fecha) >= 36500)
+      if(this.calculateDiff(this.contactoRequest.fecha) >= 36500)
       {
         this.errores = [];
         this.errores.push('La fecha no es válida');
@@ -92,8 +97,9 @@ export class ContactoComponent implements OnInit {
 
 
 
-      this.contactoService.addContacto(contactoRequest)
+      this.contactoService.addContacto(this.contactoRequest)
         .subscribe(() => {
+          this.exito = true;
           // this.modalService.open(ModalregistroComponent,{centered:true});
         }, errores => {
           this.errores = this.parsearErroresAPI(errores);
