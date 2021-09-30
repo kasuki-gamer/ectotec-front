@@ -34,8 +34,7 @@ export class ContactoComponent implements OnInit {
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       fecha: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       ciudadEdo: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
-      // captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)], [this.captchaAsyncValidator()]]
-      captcha: ['', [Validators.required,Validators.minLength(4), Validators.maxLength(4)]]
+      captcha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)], [this.captchaAsyncValidator()]]
     });
 
     
